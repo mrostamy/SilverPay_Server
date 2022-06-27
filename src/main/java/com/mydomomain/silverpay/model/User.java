@@ -2,23 +2,26 @@ package com.mydomomain.silverpay.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-public class User extends BaseEntity<UUID> {
+public class User extends BaseEntity<String> implements UserDetails {
 
     public User() {
-        this.setId(UUID.randomUUID());
+        this.setId(UUID.randomUUID().toString());
     }
 
     @NotNull
@@ -46,7 +49,8 @@ public class User extends BaseEntity<UUID> {
     @NotNull
     private boolean status;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany
+    @JoinColumn
     private List<Photo> photos;
 //
 //    @OneToMany(mappedBy = "users")
@@ -56,8 +60,11 @@ public class User extends BaseEntity<UUID> {
 //    @JoinColumn
 //    private List<Notification> notifications;
 
-    @OneToMany(mappedBy = "user_id")
+    @OneToMany
+    @JoinColumn
     private List<BankCard> bankCards;
+
+
 
 //    @OneToMany
 //    @JoinColumn
@@ -82,4 +89,33 @@ public class User extends BaseEntity<UUID> {
 //    @OneToMany
 //    @JoinColumn
 //    private List<Blog> blogs;
+
+
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
+
 }

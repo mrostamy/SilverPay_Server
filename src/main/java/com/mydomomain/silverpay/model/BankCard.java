@@ -39,9 +39,6 @@ public class BankCard extends BaseEntity<String> {
 
 //    private boolean approve;
 
-
-    private String user_id;
-
     @OneToOne
     private User user;
 
