@@ -1,0 +1,147 @@
+[
+  {
+    "username": "mcdowelllogan@digitalus.com",
+    "name": "Yang Shields",
+    "phoneNumber": "+98 (928) 531-3656",
+    "address": "490 Delmonico Place, Lindcove Louisiana,1009",
+    "gender": "male",
+    "city": "Brutus",
+    "isActive": true,
+    "status": true,
+    "dateOfBirth": "1988-08-Tuesday",
+    "photos": [
+      {
+        "photoUrl": "https://randomuser.me/api/portraits/men/19.jpg",
+        "alt": "Dolor reprehenderit nulla irure anim ullamco proident Lorem fugiat dolor tempor amet ex cupidatat nisi.",
+        "isMain": false,
+        "description": "Non est nostrud culpa cillum do qui culpa sit id reprehenderit ipsum."
+      }
+    ],
+    "bankCards": [
+      {
+        "bankName": "Lynn",
+        "ownerName": "Hancock Best",
+        "shaba": "IR 0236598000215632014598002",
+        "cardNumber": 5986320015498532,
+        "expireMonth": 98,
+        "expireYear":14
+      }
+    ]
+  },
+  {
+    "username": "hancockbest@digitalus.com",
+    "name": "Foreman Alvarado",
+    "phoneNumber": "+98 (982) 442-2124",
+    "address": "640 Paerdegat Avenue, Hannasville Delaware,781",
+    "gender": "male",
+    "city": "Greenwich",
+    "isActive": false,
+    "status": true,
+    "dateOfBirth": "2015-01-Sunday",
+    "photos": [
+      {
+        "photoUrl": "https://randomuser.me/api/portraits/men/97.jpg",
+        "alt": "Eiusmod nulla adipisicing mollit esse sunt aliquip consequat aute.",
+        "isMain": false,
+        "description": "Minim magna sint tempor minim ea velit minim quis culpa ex nostrud."
+      }
+    ],
+    "bankCards": [
+      {
+        "bankName": "Maryanne",
+        "ownerName": "Soto Pate",
+        "shaba": "IR 0236598000215632014598002",
+        "cardNumber": 5986320015498532,
+        "expireMonth": 98,
+        "expireYear":44
+      }
+    ]
+  },
+  {
+    "username": "sotopate@digitalus.com",
+    "name": "Underwood Wilkins",
+    "phoneNumber": "+98 (830) 421-2017",
+    "address": "862 Classon Avenue, Graball Missouri,2403",
+    "gender": "male",
+    "city": "Winchester",
+    "isActive": false,
+    "status": true,
+    "dateOfBirth": "1952-06-Tuesday",
+    "photos": [
+      {
+        "photoUrl": "https://randomuser.me/api/portraits/men/43.jpg",
+        "alt": "Officia deserunt voluptate mollit excepteur dolor voluptate cupidatat dolor.",
+        "isMain": false,
+        "description": "Cupidatat ad ex pariatur non magna ut ad ea fugiat."
+      }
+    ],
+    "bankCards": [
+      {
+        "bankName": "Camacho",
+        "ownerName": "Conrad Stein",
+        "shaba": "IR 0236598000215632014598002",
+        "cardNumber": 5986320015498532,
+        "expireMonth": 98,
+        "expireYear":84
+      }
+    ]
+  },
+  {
+    "username": "conradstein@digitalus.com",
+    "name": "Gregory Cooke",
+    "phoneNumber": "+98 (987) 421-2699",
+    "address": "449 Autumn Avenue, Shaft Maryland,4611",
+    "gender": "male",
+    "city": "Marne",
+    "isActive": true,
+    "status": true,
+    "dateOfBirth": "1967-02-Sunday",
+    "photos": [
+      {
+        "photoUrl": "https://randomuser.me/api/portraits/men/55.jpg",
+        "alt": "Aute id ad quis ad proident fugiat.",
+        "isMain": false,
+        "description": "Minim officia nostrud velit ex sint cupidatat occaecat nisi consequat amet fugiat laboris incididunt qui."
+      }
+    ],
+    "bankCards": [
+      {
+        "bankName": "Little",
+        "ownerName": "Rivas Bonner",
+        "shaba": "IR 0236598000215632014598002",
+        "cardNumber": 5986320015498532,
+        "expireMonth": 98,
+        "expireYear":44
+      }
+    ]
+  },
+  {
+    "username": "rivasbonner@digitalus.com",
+    "name": "Simmons Buckley",
+    "phoneNumber": "+98 (868) 406-2165",
+    "address": "466 Schenectady Avenue, Norwood Florida,4210",
+    "gender": "male",
+    "city": "Kimmell",
+    "isActive": false,
+    "status": true,
+    "dateOfBirth": "1965-12-Friday",
+    "photos": [
+      {
+        "photoUrl": "https://randomuser.me/api/portraits/men/61.jpg",
+        "alt": "Nisi sunt excepteur voluptate aliqua culpa duis.",
+        "isMain": false,
+        "description": "Minim ullamco deserunt cillum pariatur sit aliquip."
+      }
+    ],
+    "bankCards": [
+      {
+        "bankName": "Sosa",
+        "ownerName": "Hess Petty",
+        "shaba": "IR 0236598000215632014598002",
+        "cardNumber": 5986320015498532,
+        "expireMonth": 98,
+        "expireYear":88
+      }
+    ]
+  }
+]

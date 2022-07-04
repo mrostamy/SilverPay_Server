@@ -1,13 +1,12 @@
 package com.mydomomain.silverpay.controller.site.panel;
 
-import com.mydomomain.silverpay.dto.site.panel.UserLoginDto;
-import com.mydomomain.silverpay.dto.site.panel.UserRegisterDto;
+import com.mydomomain.silverpay.dto.site.panel.users.UserLoginDto;
+import com.mydomomain.silverpay.dto.site.panel.users.UserRegisterDto;
 import com.mydomomain.silverpay.helper.Jwt;
 import com.mydomomain.silverpay.model.ReturnMessage;
 import com.mydomomain.silverpay.model.User;
 import com.mydomomain.silverpay.repository.main.IUserRepository;
 import com.mydomomain.silverpay.service.userService.AuthService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +19,6 @@ import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/site/panel/auth")
-//@RequestMapping(Routes.Auth.url)
 public class AuthController {
 
 
@@ -41,7 +39,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<Object> register(@RequestBody @Valid UserRegisterDto userRegisterDto) {
 
-
+//
         if (userRepository.existsUserByUsername(userRegisterDto.getUsername())) {
 
             ReturnMessage message = new ReturnMessage(false, "username exist", "error");
@@ -53,7 +51,7 @@ public class AuthController {
         User user = new User();
         user.setAddress("");
         user.setCity("tehran");
-        user.setDateOfBirth(LocalDateTime.now());
+        user.setDateOfBirth(LocalDateTime.now().toString());
         user.setName(userRegisterDto.getName());
         user.setPhoneNumber(userRegisterDto.getPhoneNumber());
         user.setUsername(userRegisterDto.getUsername().toLowerCase());
@@ -63,14 +61,19 @@ public class AuthController {
         return new ResponseEntity<>(u, HttpStatus.CREATED);
 
 
+
+
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Object> login(@RequestBody UserLoginDto userLoginDto) {
+    public ResponseEntity<Object> login(@RequestBody @Valid UserLoginDto userLoginDto) {
+
+//        throw new RuntimeException("ggggg");
 
         User user = authService.login(userLoginDto.getUsername(), userLoginDto.getPassword());
 
         if (user == null) {
+            System.out.println("user is null");
             ReturnMessage returnMessage = new ReturnMessage(false, "invalid username or password", "error");
             return new ResponseEntity<>(returnMessage, HttpStatus.UNAUTHORIZED);
         }

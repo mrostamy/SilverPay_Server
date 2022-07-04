@@ -1,17 +1,21 @@
 package com.mydomomain.silverpay.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
-public class Photo extends BaseEntity<String> {
+public class Photo extends BaseEntity<String> implements Serializable {
 
 
     public Photo() {
@@ -20,17 +24,25 @@ public class Photo extends BaseEntity<String> {
 
 
     @NotNull
-    private String url;
+    @Length(min = 0,max = 1000)
+    private String photoUrl;
+    @Length(min = 0,max = 500)
     private String alt;
+    @Length(min = 0,max = 500)
     private String description;
+
     @NotNull
     private boolean isMain;
 
-//    @NotNull
-//    private String user_id;
-
     @OneToOne
+    @JsonBackReference
     private User user;
 
+    public boolean getIsMain() {
+        return isMain;
+    }
 
+    public void setIsMain(boolean main) {
+        isMain = main;
+    }
 }

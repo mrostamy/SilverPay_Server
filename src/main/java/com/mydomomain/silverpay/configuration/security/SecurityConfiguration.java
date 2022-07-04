@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import javax.servlet.http.HttpServletResponse;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
@@ -38,7 +38,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //
-        http.authorizeRequests().antMatchers("/**/login").permitAll().anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/**/login").permitAll()
+                .antMatchers("/**/register").permitAll()
+                .antMatchers("/api-doc/**").permitAll()
+                .anyRequest().authenticated();
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.exceptionHandling().authenticationEntryPoint(((request, response, authException) ->
