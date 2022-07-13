@@ -89,8 +89,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         User userDetails = new User();
         String[] jwtSubject = jwt.getSubject(token).split(",");
 
-        userDetails.setId(jwtSubject[0]);
-        userDetails.setUsername(jwtSubject[1]);
+        userDetails.setId(jwtSubject[1]);
+        userDetails.setUsername(jwtSubject[0]);
 
         return userDetails;
     }

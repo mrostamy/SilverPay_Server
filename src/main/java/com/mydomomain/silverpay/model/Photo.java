@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -24,15 +26,16 @@ public class Photo extends BaseEntity<String> implements Serializable {
 
 
     @NotNull
-    @Length(min = 0,max = 1000)
+    @Length(min = 0, max = 1000)
     private String photoUrl;
-    @Length(min = 0,max = 500)
+    @Length(min = 0, max = 500)
     private String alt;
-    @Length(min = 0,max = 500)
+    @Length(min = 0, max = 500)
     private String description;
-
     @NotNull
     private boolean isMain;
+
+    private String publicId;
 
     @OneToOne
     @JsonBackReference

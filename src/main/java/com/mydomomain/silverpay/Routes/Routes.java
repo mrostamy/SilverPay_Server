@@ -5,7 +5,7 @@ public class Routes {
     private static final String base_url = "api/site/panel";
 
     //region auth
-    public class Auth {
+    public static class Auth {
         public static final String url = base_url + "/auth";
 
         public static final String login = url+"/login";
@@ -16,7 +16,7 @@ public class Routes {
 
 
     //region user
-    public class User {
+    public static class User {
         public static final String url = base_url + "/users";
 
         public static final String users = url;
@@ -26,5 +26,15 @@ public class Routes {
     }
     //endregion
 
+    //region photo
+    public static class Photo {
+        public static final String url = base_url + "/users/{userId}/photos";
+
+        public static final String photos = url;
+        public static final String photo = url + "/{id}";
+        public static final String update = url + "/{id}";
+        public static final String delete = url + "/{id}";
+    }
+    //endregion
 
 }

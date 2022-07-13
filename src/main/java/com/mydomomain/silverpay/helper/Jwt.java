@@ -17,18 +17,21 @@ public class Jwt {
     @Value("${jwt.secretKey}")
     private String secretKey;
 
+    public String generatedToken="";
+
     public String jwtGeneration(String username, String userId, boolean remember) {
 
         Date expire = remember ? Date.from(Instant.now().plus(2, ChronoUnit.DAYS)) :
                 Date.from(Instant.now().plus(2, ChronoUnit.HOURS));
-
-        return Jwts.builder()
+        generatedToken = Jwts.builder()
                 .setSubject(String.format("%s,%s", userId, username))
                 .setIssuer("mohammad")
                 .setIssuedAt(Date.from(Instant.now()))
                 .setExpiration(expire)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
+
+        return generatedToken;
     }
 
     public boolean validateToken(String token) {

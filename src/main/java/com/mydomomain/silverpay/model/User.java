@@ -58,11 +58,10 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
     @NotNull
     private boolean status;
 
-    @NotNull
     private String lastActive;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn
     @JsonManagedReference
     private List<Photo> photos;
 
@@ -124,26 +123,31 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
 
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return false;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return false;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return false;
     }

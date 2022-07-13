@@ -1,27 +1,24 @@
 package com.mydomomain.silverpay.controller.site.panel;
 
 import com.mydomomain.silverpay.Routes.Routes;
-import com.mydomomain.silverpay.configuration.model_mapper.UserMapping;
+import com.mydomomain.silverpay.configuration.cloudinary.CloudinaryConfigs;
+import com.mydomomain.silverpay.configuration.model_mapper.UserMapper;
+import com.mydomomain.silverpay.dto.site.panel.users.PasswordResetDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserDetailDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserListDto;
-import com.mydomomain.silverpay.helper.AuthUtil;
+import com.mydomomain.silverpay.dto.site.panel.users.UserUpdateDto;
 import com.mydomomain.silverpay.model.User;
 import com.mydomomain.silverpay.repository.main.IUserRepository;
-import io.jsonwebtoken.Jwt;
-import org.mapstruct.factory.Mappers;
-import org.modelmapper.ModelMapper;
+import com.mydomomain.silverpay.service.userService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.io.FileNotFoundException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,16 +27,16 @@ import java.util.List;
 @RequestMapping(Routes.User.url)
 public class UserController {
 
-    IUserRepository userRepository;
+    final IUserRepository userRepository;
 
-    final ModelMapper modelMapper;
+    final UserService userService;
 
-    UserController(IUserRepository repository, ModelMapper modelMapper) {
-        this.userRepository = repository;
-        this.modelMapper = modelMapper;
+    UserController(IUserRepository userRepository, UserService userService) {
+
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
-    UserMapping userMapper = Mappers.getMapper(UserMapping.class);
 
     @GetMapping
     public ResponseEntity<Object> getUsers() {
@@ -48,27 +45,89 @@ public class UserController {
 
         List<UserListDto> userDtos = new ArrayList<>();
 
-        users.forEach(user -> userDtos.add(modelMapper.map(user, UserListDto.class)));
+        users.forEach(user -> userDtos.add(UserMapper.instance.userListDto(user)));
 
         return new ResponseEntity<>(userDtos, HttpStatus.OK);
 
     }
 
+
     @GetMapping("{id}")
-    public ResponseEntity<Object> getUser(@PathVariable String id, Principal principal) {
+    public ResponseEntity<Object> getUser(@PathVariable String id, Principal principal) throws FileNotFoundException {
+
+
+        if (!principal.getName().equals(id)) {
+            return new ResponseEntity<>("UnAuthorize Access Detected", HttpStatus.UNAUTHORIZED);
+        }
+
 
         User user = userRepository.findById(id).isPresent() ? userRepository.findById(id).get() : null;
 
-        if(!new AuthUtil().authCheck(user,principal)){
-            return new ResponseEntity<>("UnAuthorized Access Detected", HttpStatus.UNAUTHORIZED);
+
+        UserDetailDto userDetailDto = UserMapper.instance.detailDto(user);
+
+//        UserDetailDto userDetailDto=modelMapper.map(user,UserDetailDto.class);
+
+        return new ResponseEntity<>(userDetailDto, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/insertUser")
+    public ResponseEntity<Object> insertUser(@RequestBody User user, Principal principal) {
+
+        if (!user.getId().equals(principal.getName())) {
+
+            return new ResponseEntity<>("UnAuthorize Access Detected", HttpStatus.UNAUTHORIZED);
+        }
+        User ur = userRepository.save(user);
+        return new ResponseEntity<>(ur, HttpStatus.OK);
+
+
+    }
+
+    @PutMapping("/updateUser/{id}")
+    public ResponseEntity<Object> updateUser(@PathVariable String id
+            , @RequestBody @Valid UserUpdateDto userUpdateDto, Principal principal) {
+
+        if (!principal.getName().equals(id)) {
+
+            return new ResponseEntity<>("UnAuthorize Access Detected", HttpStatus.UNAUTHORIZED);
+        }
+
+        User user = userRepository.getReferenceById(id);
+
+        user = UserMapper.instance.user(userUpdateDto);
+
+        System.out.println("name: " + user.getName());
+
+//        user.setPassword("1234");
+//        user.setUsername("mmmm");
+//        user.setLastActive("now");
+
+
+        userRepository.update(user);
+
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+    }
+
+    @PutMapping("/resetPassword/{id}")
+    public ResponseEntity<Object> resetPassword(@PathVariable String id
+            , @RequestBody @Valid PasswordResetDto passwordResetDto) {
+
+        User user = userService.checkUserPassword(id, passwordResetDto.getOldPassword());
+
+        if (user == null) {
+            return new ResponseEntity<>("old password in incorrect", HttpStatus.BAD_REQUEST);
 
         }
 
-        UserMapping userMapping = Mappers.getMapper(UserMapping.class);
-
-        UserDetailDto userDetailDto = userMapping.detailDto(user);
-
-        return new ResponseEntity<>(userDetailDto, HttpStatus.OK);
+        if (userService.updatePassword(user, passwordResetDto.getNewPassword())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>("error in update password", HttpStatus.BAD_REQUEST);
+        }
 
     }
 }

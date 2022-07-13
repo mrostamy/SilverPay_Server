@@ -42,8 +42,13 @@ public class SecurityConfiguration {
                 .antMatchers("/**/login").permitAll()
                 .antMatchers("/**/register").permitAll()
                 .antMatchers("/api-doc/**").permitAll()
-                .anyRequest().authenticated();
+                .and()
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+        ;
         http.csrf().disable();
+        http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.exceptionHandling().authenticationEntryPoint(((request, response, authException) ->
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getMessage())
