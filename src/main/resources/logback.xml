@@ -1,0 +1,32 @@
+<configuration>
+
+    <property name="LOG_DIR" value="classpath:/log"/>
+<!--    <property name="LOG_DIR" value="#{environment[app-workdir']}/log"/>-->
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="rolling_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>app_log_%d{yyyy-MM-dd}_%i.txt</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>classpath:logs/log_%d{yyyy-MM-dd-HH-mm}_%i.txt</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+<!--        <appender-ref ref="rolling_file"/>-->
+    </root>
+</configuration>

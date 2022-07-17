@@ -10,16 +10,15 @@ import com.mydomomain.silverpay.model.ReturnMessage;
 import com.mydomomain.silverpay.model.User;
 import com.mydomomain.silverpay.repository.main.IUserRepository;
 import com.mydomomain.silverpay.service.userService.AuthService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.FileNotFoundException;
 import java.time.LocalDateTime;
@@ -29,6 +28,7 @@ import java.util.Map;
 @RequestMapping("/api/site/panel/auth")
 public class AuthController {
 
+    final HttpServletRequest request;
 
     AuthService authService;
 
@@ -36,12 +36,14 @@ public class AuthController {
 
     Jwt jwt;
 
-    AuthController(AuthService authService, IUserRepository userRepository, Jwt jwt) {
+    AuthController(AuthService authService, IUserRepository userRepository, Jwt jwt, HttpServletRequest request) {
         this.authService = authService;
         this.userRepository = userRepository;
         this.jwt = jwt;
+        this.request = request;
     }
 
+    Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     //    @PostMapping(Routes.Auth.register)
     @PostMapping("/register")
@@ -50,6 +52,8 @@ public class AuthController {
             , HttpServletRequest request) throws FileNotFoundException {
 
 //
+        logger.info("ip: " + request.getRemoteAddr());
+
         if (userRepository.existsUserByUsername(userRegisterDto.getUsername())) {
 
             ReturnMessage message = new ReturnMessage(false, "username exist", "error");
@@ -85,8 +89,10 @@ public class AuthController {
 
     }
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<Object> login(@RequestBody @Valid UserLoginDto userLoginDto) {
+
+        logger.info("ip: " + request.getRemoteAddr());
 
         User user = authService.login(userLoginDto.getUsername(), userLoginDto.getPassword());
 
@@ -97,7 +103,7 @@ public class AuthController {
 
         String token = jwt.jwtGeneration(userLoginDto.getUsername(), user.getId(), true);
 
-        UserDetailDto userDetailDto = UserMapper.instance.detailDto(user);
+        //UserDetailDto userDetailDto = UserMapper.instance.detailDto(user);
 
         return new ResponseEntity<>(Map.of("token", token, "user", user), HttpStatus.OK);
 

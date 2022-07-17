@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 public class CloudinarySettings {
 
     @Value("${cloudinary-cloud-name}")
-    String cloudinary_cloud_name;
+    public String cloudinary_cloud_name;
 
     @Value("${cloudinary-secret-key}")
     String cloudinary_secret_key;

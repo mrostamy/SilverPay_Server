@@ -1,5 +1,8 @@
 package com.mydomomain.silverpay.service.userService.upload;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
+import com.cloudinary.utils.ObjectUtils;
 import com.mydomomain.silverpay.dto.site.panel.upload.FileUploadedDto;
 import com.mydomomain.silverpay.model.Photo;
 import com.mydomomain.silverpay.repository.main.IPhotoRepository;
@@ -10,7 +13,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class UploadService implements IUploadService {
@@ -18,16 +24,46 @@ public class UploadService implements IUploadService {
     final IPhotoRepository photoRepository;
     final ISettingRepository settingRepository;
 
-    public UploadService(IPhotoRepository photoRepository, ISettingRepository settingRepository) {
+    final Cloudinary cloudinary;
+
+    public UploadService(IPhotoRepository photoRepository, ISettingRepository settingRepository, Cloudinary cloudinary) {
         this.photoRepository = photoRepository;
         this.settingRepository = settingRepository;
+        this.cloudinary = cloudinary;
     }
 
     @Override
     public FileUploadedDto uploadProfilePicToCloudinary(MultipartFile file, String userId) {
 
 
-        return null;
+        try {
+
+            String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+
+            String fullName = userId + "." + extension;
+
+            Path path = Paths.get(ResourceUtils.getFile("classpath:static/content/pic").toString(), fullName);
+
+            Files.deleteIfExists(path);
+            Path f = Files.createFile(path);
+
+            file.transferTo(f);
+
+            var result = cloudinary.uploader().upload(path.toFile(), ObjectUtils.asMap(
+                    "transformation", new Transformation<>().width(150).height(150).crop("fill").gravity("face")
+            ));
+
+            return new FileUploadedDto(
+                    true,
+                    false,
+                    (String) result.get("url"),
+                    (String) result.get("public_id"),
+                    "file uploaded successfully"
+            );
+
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     @Override
@@ -78,13 +114,33 @@ public class UploadService implements IUploadService {
 
     @Override
     public FileUploadedDto removeFromCloudinary(String publicId) {
-        return null;
+
+        try {
+            cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+            return new FileUploadedDto(true, false, "", publicId, "image removed successfully");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            return new FileUploadedDto(false, false, "", publicId, "error in remove image");
+        }
     }
 
     @Override
-    public FileUploadedDto removeFileFromLocal(String photoName,String webRootPath,String path) {
+    public FileUploadedDto removeFileFromLocal(String photoName, String webRootPath, String path) {
 
-//        photoRepository.findByPublicId(publicId).ifPresent(photoRepository::delete);
+
+        try {
+            Photo photo = photoRepository.findByPublicId(photoName).orElse(null);
+
+            if (photo != null) {
+                String photoUrl = photo.getPhotoUrl();
+                Files.deleteIfExists(Path.of(ResourceUtils.getFile("classpath:static/content/pic").toString(), photoName));
+                return new FileUploadedDto(true, false, "", photoName, "image removed successfully");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new FileUploadedDto(false, false, "", photoName, "error in remove image");
+        }
 
 
         return null;

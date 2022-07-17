@@ -31,9 +31,7 @@ public class AuthService {
     }
 
     public User login(String username, String password) {
-        User user = userRepo.findByUsername(username).get();
-
-        System.out.println("password: " + user.getPassword());
+        User user = userRepo.findByUsername(username).orElse(null);
 
         if (PasswordHash.verifyPassword(user.getPassword(), password)) {
 

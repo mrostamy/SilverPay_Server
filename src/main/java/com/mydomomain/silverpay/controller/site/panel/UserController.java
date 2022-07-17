@@ -1,7 +1,6 @@
 package com.mydomomain.silverpay.controller.site.panel;
 
 import com.mydomomain.silverpay.Routes.Routes;
-import com.mydomomain.silverpay.configuration.cloudinary.CloudinaryConfigs;
 import com.mydomomain.silverpay.configuration.model_mapper.UserMapper;
 import com.mydomomain.silverpay.dto.site.panel.users.PasswordResetDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserDetailDto;
@@ -10,11 +9,8 @@ import com.mydomomain.silverpay.dto.site.panel.users.UserUpdateDto;
 import com.mydomomain.silverpay.model.User;
 import com.mydomomain.silverpay.repository.main.IUserRepository;
 import com.mydomomain.silverpay.service.userService.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

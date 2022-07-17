@@ -2,7 +2,7 @@ package com.mydomomain.silverpay.Routes;
 
 public class Routes {
 
-    private static final String base_url = "api/site/panel";
+    private static final String base_url = "/api/site/panel";
 
     //region auth
     public static class Auth {

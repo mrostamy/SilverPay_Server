@@ -6,9 +6,11 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Getter
 @Setter
+@XmlRootElement
 public class UserLoginDto {
 
     @NotNull
