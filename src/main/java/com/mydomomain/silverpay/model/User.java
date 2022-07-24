@@ -1,20 +1,19 @@
 package com.mydomomain.silverpay.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -65,21 +64,19 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
     @JsonManagedReference
     private List<Photo> photos;
 
-    public List<Photo> getPhotos() {
-        return photos;
-    }
 
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
-    }
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "user_role",
+            joinColumns =@JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    @JsonManagedReference
+    private List<Role> roles=new ArrayList<>();
 
-    //
-//    @OneToMany(mappedBy = "users")
-//    private List<Role> roles;
-//
-//    @OneToMany
-//    @JoinColumn
-//    private List<Notification> notifications;
+    @OneToMany
+    @JoinColumn
+    private List<Notification> notifications;
 
     @Transient
     private List<Photo> testPhotos;
@@ -97,9 +94,9 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
         isActive = active;
     }
 
-    //    @OneToMany
-//    @JoinColumn
-//    private List<Token> tokens;
+    @OneToMany
+    @JoinColumn
+    private List<Token> tokens;
 //
 //    @OneToMany
 //    @JoinColumn
@@ -121,11 +118,23 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
 //    @JoinColumn
 //    private List<Blog> blogs;
 
+    public void addRole(Role role) {
+        this.roles.add(role);
+    }
 
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+
+
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+
+
+        return authorities;
     }
 
     @Override
@@ -154,3 +163,30 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

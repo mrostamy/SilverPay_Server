@@ -4,6 +4,7 @@ import com.mydomomain.silverpay.repository.main.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AnyRequestMatcher;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -39,14 +41,16 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //
         http.authorizeRequests()
-                .antMatchers("/**/login").permitAll()
-                .antMatchers("/**/register").permitAll()
-                .antMatchers("/api-doc/**").permitAll()
-                .and()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated()
-        ;
+                .antMatchers("/**").permitAll();
+//                .antMatchers("/**/login").permitAll()
+//                .antMatchers("/**/register").hasRole("User")
+//                .antMatchers("/api-doc/**").permitAll();
+//                .and()
+        //.authorizeRequests()
+        //.anyRequest()
+        //.authenticated();
+        http.headers().httpStrictTransportSecurity().requestMatcher(AnyRequestMatcher.INSTANCE)
+                .preload(true).includeSubDomains(true).maxAgeInSeconds(360000);
         http.csrf().disable();
         http.cors();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
@@ -82,4 +86,10 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public RoleHierarchyImpl roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ROLE_Admin > ROLE_Accountant > ROLE_Blog >RoleUser");
+        return roleHierarchy;
+    }
 }

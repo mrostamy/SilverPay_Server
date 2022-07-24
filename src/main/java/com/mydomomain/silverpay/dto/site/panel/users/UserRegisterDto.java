@@ -12,17 +12,16 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class UserRegisterDto {
 
-    @NotNull
+    @NotNull(message = "name is required")
     private String name;
-    @NotBlank
+    @NotBlank(message = "email is required")
     @Email(message = "email format is invalid")
     private String username;
-    @NotNull
+    @NotNull(message = "password is required")
     @Length(min = 4, max = 10, message = "password must be between 4 to 10 character")
     private String password;
-    @NotNull
+    @NotNull(message = "phoneNumber is required")
     private String phoneNumber;
-
 
 
 }

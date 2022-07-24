@@ -29,8 +29,9 @@ public class BankCard extends BaseEntity<String> implements Serializable {
     @Length(min = 0,max = 100)
     private String ownerName;
 
-    @Length(min = 0,max = 280)
     private String shaba;
+
+    private String accountNumber;
 
     @NotNull
     @Length(min = 16,max = 16)
@@ -44,7 +45,8 @@ public class BankCard extends BaseEntity<String> implements Serializable {
     @Length(min = 2,max = 2)
     private String expireYear;
 
-//    private boolean approve;
+    @NotNull
+    private boolean approve;
 
     @OneToOne
     @JsonBackReference

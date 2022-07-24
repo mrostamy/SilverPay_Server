@@ -11,12 +11,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RestDocConfig {
 
+
     @Bean
     public GroupedOpenApi panelApi(){
 
         return GroupedOpenApi.builder()
-                .group("panel api V1")
-                .pathsToMatch("/api/site/panel/**")
+                .group("V_1_site_panel")
+                .pathsToMatch("/V1/**")
+                .packagesToScan("*")
                 .build();
 
     }
@@ -26,7 +28,7 @@ public class RestDocConfig {
 
         return GroupedOpenApi.builder()
                 .group("api V1")
-                .pathsToMatch("/api/panel/**")
+                .pathsToMatch("**/v1")
                 .build();
 
     }

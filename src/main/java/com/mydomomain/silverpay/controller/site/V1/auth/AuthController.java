@@ -1,10 +1,10 @@
-package com.mydomomain.silverpay.controller.site.panel;
+package com.mydomomain.silverpay.controller.site.V1.auth;
 
-import com.mydomomain.silverpay.configuration.model_mapper.UserMapper;
-import com.mydomomain.silverpay.dto.site.panel.users.UserDetailDto;
+import com.mydomomain.silverpay.Routes.V1.Routes;
 import com.mydomomain.silverpay.dto.site.panel.users.UserLoginDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserRegisterDto;
-import com.mydomomain.silverpay.helper.Jwt;
+import com.mydomomain.silverpay.helper.JwtUtil;
+import com.mydomomain.silverpay.model.Notification;
 import com.mydomomain.silverpay.model.Photo;
 import com.mydomomain.silverpay.model.ReturnMessage;
 import com.mydomomain.silverpay.model.User;
@@ -12,9 +12,7 @@ import com.mydomomain.silverpay.repository.main.IUserRepository;
 import com.mydomomain.silverpay.service.userService.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +23,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/site/panel/auth")
 public class AuthController {
 
     final HttpServletRequest request;
@@ -34,19 +31,20 @@ public class AuthController {
 
     IUserRepository userRepository;
 
-    Jwt jwt;
+    JwtUtil jwtUtil;
 
-    AuthController(AuthService authService, IUserRepository userRepository, Jwt jwt, HttpServletRequest request) {
+    AuthController(AuthService authService, IUserRepository userRepository, JwtUtil jwtUtil, HttpServletRequest request) {
         this.authService = authService;
         this.userRepository = userRepository;
-        this.jwt = jwt;
+        this.jwtUtil = jwtUtil;
         this.request = request;
     }
 
     Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     //    @PostMapping(Routes.Auth.register)
-    @PostMapping("/register")
+    @PostMapping(Routes.Auth.register)
+//    @PreAuthorize("hasAuthority('ROLE_Admin')")
     public ResponseEntity<Object> register(@RequestBody @Valid UserRegisterDto userRegisterDto
 
             , HttpServletRequest request) throws FileNotFoundException {
@@ -62,6 +60,7 @@ public class AuthController {
 
         }
 
+
         User user = new User();
         user.setAddress("");
         user.setCity("tehran");
@@ -74,6 +73,24 @@ public class AuthController {
         user.setPhoneNumber(userRegisterDto.getPhoneNumber());
         user.setUsername(userRegisterDto.getUsername().toLowerCase());
 
+
+        Notification notification = new Notification();
+
+        notification.setUser(user);
+        notification.setEnterEmail(true);
+        notification.setEnterSms(false);
+        notification.setEnterTelegram(true);
+        notification.setExitEmail(true);
+        notification.setExitSms(false);
+        notification.setExitTelegram(true);
+        notification.setTicketEmail(true);
+        notification.setTicketSms(false);
+        notification.setTicketTelegram(true);
+        notification.setLoginEmail(true);
+        notification.setLoginSms(false);
+        notification.setLoginTelegram(true);
+
+
         Photo photo = new Photo();
         photo.setUser(user);
         photo.setDescription("profile pic");
@@ -82,14 +99,14 @@ public class AuthController {
         photo.setPublicId("0");
         photo.setPhotoUrl(String.format("%s://%s:%s/%s", request.getScheme(), request.getServerName(), request.getServerPort(), "/content/pic/default_profile.png"));//create web like path
 
-        User u = authService.register(user, photo, userRegisterDto.getPassword());
+        User u = authService.register(user, notification, photo, userRegisterDto.getPassword());
 
         return new ResponseEntity<>(u, HttpStatus.CREATED);
 
 
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(Routes.Auth.login)
     public ResponseEntity<Object> login(@RequestBody @Valid UserLoginDto userLoginDto) {
 
         logger.info("ip: " + request.getRemoteAddr());
@@ -101,11 +118,11 @@ public class AuthController {
             return new ResponseEntity<>(returnMessage, HttpStatus.UNAUTHORIZED);
         }
 
-        String token = jwt.jwtGeneration(userLoginDto.getUsername(), user.getId(), true);
+//        String token = jwtUtil.CreateAccessToken(user, true);
 
         //UserDetailDto userDetailDto = UserMapper.instance.detailDto(user);
 
-        return new ResponseEntity<>(Map.of("token", token, "user", user), HttpStatus.OK);
+        return new ResponseEntity<>(Map.of("token", "token", "user", user), HttpStatus.OK);
 
     }
 

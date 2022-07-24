@@ -1,9 +1,9 @@
 package com.mydomomain.silverpay.configuration.security;
 
-import com.mydomomain.silverpay.helper.Jwt;
+import com.mydomomain.silverpay.helper.JwtUtil;
+import com.mydomomain.silverpay.model.Role;
 import com.mydomomain.silverpay.model.User;
-import io.netty.util.internal.ObjectUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.jsonwebtoken.Claims;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,15 +22,17 @@ import java.io.IOException;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
 
-    final Jwt jwt;
+    final JwtUtil jwtUtil;
 
-    public JwtTokenFilter(Jwt jwt) {
-        this.jwt = jwt;
+    public JwtTokenFilter(JwtUtil jwtUtil) {
+        this.jwtUtil = jwtUtil;
     }
 
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+        System.out.println("has token : *********"+hasAuthorizationBearer(request));
 
         if (!hasAuthorizationBearer(request)) {
             filterChain.doFilter(request, response);
@@ -39,7 +41,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
         String token = getAccessToken(request);
 
-        if (!jwt.validateToken(token)) {
+        System.out.println("validate token:************  "+jwtUtil.validateToken(token));
+
+        if (!jwtUtil.validateToken(token)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -68,16 +72,17 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private String getAccessToken(HttpServletRequest request) {
         String header = request.getHeader("Authorization");
-        String token = header.split(" ")[1].trim();
-        return token;
+        return header.split(" ")[1].trim();
+
     }
 
     private void setAuthenticationContext(String token, HttpServletRequest request) {
 
         UserDetails userDetails = getUserDetails(token);
 
+
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(userDetails, null, null);
+                new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
@@ -86,9 +91,22 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     }
 
     private UserDetails getUserDetails(String token) {
-        User userDetails = new User();
-        String[] jwtSubject = jwt.getSubject(token).split(",");
 
+        User userDetails = new User();
+        Claims claims = jwtUtil.parseClaims(token);
+        String subject = (String) claims.get(Claims.SUBJECT);
+        String roles = (String) claims.get("roles");
+        roles = roles.replace("[", "").replace("]", "");
+
+        System.out.println("roles: "+roles);
+        String[] roleNames = roles.split(",");
+
+        for (String aRoleName : roleNames) {
+            System.out.println("Role name:++++"+aRoleName);
+            userDetails.addRole(new Role(aRoleName.trim()));
+        }
+
+        String[] jwtSubject = subject.split(",");
         userDetails.setId(jwtSubject[1]);
         userDetails.setUsername(jwtSubject[0]);
 

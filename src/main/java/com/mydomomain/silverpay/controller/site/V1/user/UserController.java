@@ -1,6 +1,6 @@
-package com.mydomomain.silverpay.controller.site.panel;
+package com.mydomomain.silverpay.controller.site.V1.user;
 
-import com.mydomomain.silverpay.Routes.Routes;
+import com.mydomomain.silverpay.Routes.V1.Routes;
 import com.mydomomain.silverpay.configuration.model_mapper.UserMapper;
 import com.mydomomain.silverpay.dto.site.panel.users.PasswordResetDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserDetailDto;
@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(Routes.User.url)
 public class UserController {
 
     final IUserRepository userRepository;
@@ -34,7 +33,7 @@ public class UserController {
     }
 
 
-    @GetMapping
+    @GetMapping(Routes.User.users)
     public ResponseEntity<Object> getUsers() {
 
         List<User> users = userRepository.findAll();
@@ -47,10 +46,8 @@ public class UserController {
 
     }
 
-
-    @GetMapping("{id}")
+    @GetMapping(Routes.User.user)
     public ResponseEntity<Object> getUser(@PathVariable String id, Principal principal) throws FileNotFoundException {
-
 
         if (!principal.getName().equals(id)) {
             return new ResponseEntity<>("UnAuthorize Access Detected", HttpStatus.UNAUTHORIZED);
@@ -68,7 +65,7 @@ public class UserController {
 
     }
 
-    @PostMapping("/insertUser")
+    @PostMapping(Routes.User.insert)
     public ResponseEntity<Object> insertUser(@RequestBody User user, Principal principal) {
 
         if (!user.getId().equals(principal.getName())) {
@@ -81,7 +78,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/updateUser/{id}")
+    @PutMapping(Routes.User.update)
     public ResponseEntity<Object> updateUser(@PathVariable String id
             , @RequestBody @Valid UserUpdateDto userUpdateDto, Principal principal) {
 
@@ -108,7 +105,7 @@ public class UserController {
 
     }
 
-    @PutMapping("/resetPassword/{id}")
+    @PutMapping(Routes.User.reset_password)
     public ResponseEntity<Object> resetPassword(@PathVariable String id
             , @RequestBody @Valid PasswordResetDto passwordResetDto) {
 
