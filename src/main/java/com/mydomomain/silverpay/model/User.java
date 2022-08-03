@@ -97,14 +97,14 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
     @OneToMany
     @JoinColumn
     private List<Token> tokens;
-//
-//    @OneToMany
-//    @JoinColumn
-//    private List<Document> documents;
-//
-//    @OneToMany
-//    @JoinColumn
-//    private List<Wallet> wallets;
+
+    @OneToMany
+    @JoinColumn
+    private List<Document> documents;
+
+    @OneToMany
+    @JoinColumn
+    private List<Wallet> wallets;
 //
 //    @OneToMany
 //    @JoinColumn

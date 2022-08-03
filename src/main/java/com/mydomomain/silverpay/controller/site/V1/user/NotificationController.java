@@ -5,7 +5,6 @@ import com.mydomomain.silverpay.configuration.model_mapper.NotificationMapper;
 import com.mydomomain.silverpay.dto.site.panel.notification.NotificationUpdateDto;
 import com.mydomomain.silverpay.model.Notification;
 import com.mydomomain.silverpay.repository.main.INotificationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 public class NotificationController {
@@ -52,7 +49,7 @@ public class NotificationController {
 
     }
 
-    @PutMapping(Routes.Notification.update)
+    @PutMapping(Routes.Notification.updateNotify)
     public ResponseEntity<?> updateNotification(
             Principal principal,
             @PathVariable String user_id
@@ -71,11 +68,7 @@ public class NotificationController {
 
             var result = notifyRepo.save(notificationUpdate);
 
-            if (result != null) {
-
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>("error in update notifications", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
 
             Notification newNotification = new Notification();
@@ -86,11 +79,7 @@ public class NotificationController {
 
             Notification notification1 = notifyRepo.save(newNotification);
 
-            if (notification1 != null) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return new ResponseEntity<>("no notification found notifications", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
         }
 

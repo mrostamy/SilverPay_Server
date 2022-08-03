@@ -43,6 +43,26 @@
         "ticketTelegram": "Hancock Best",
         "ticketSms": "IR 0236598000215632014598002"
       }
+    ],
+    "wallets": [
+      {
+        "isMain": true,
+        "isSms": false,
+        "name": "asli silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      },
+      {
+        "isMain": false,
+        "isSms": true,
+        "name": "sms silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      }
     ]
   },
   {
@@ -88,6 +108,26 @@
         "ticketEmail": "Lynn",
         "ticketTelegram": "Hancock Best",
         "ticketSms": "IR 0236598000215632014598002"
+      }
+    ],
+    "wallets": [
+      {
+        "isMain": true,
+        "isSms": false,
+        "name": "asli silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      },
+      {
+        "isMain": false,
+        "isSms": true,
+        "name": "sms silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
       }
     ]
   },
@@ -135,6 +175,26 @@
         "ticketTelegram": "Hancock Best",
         "ticketSms": "IR 0236598000215632014598002"
       }
+    ],
+    "wallets": [
+      {
+        "isMain": true,
+        "isSms": false,
+        "name": "asli silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      },
+      {
+        "isMain": false,
+        "isSms": true,
+        "name": "sms silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      }
     ]
   },
   {
@@ -181,6 +241,26 @@
         "ticketTelegram": "Hancock Best",
         "ticketSms": "IR 0236598000215632014598002"
       }
+    ],
+    "wallets": [
+      {
+        "isMain": true,
+        "isSms": false,
+        "name": "asli silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      },
+      {
+        "isMain": false,
+        "isSms": true,
+        "name": "sms silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      }
     ]
   },
   {
@@ -226,6 +306,26 @@
         "ticketEmail": "Lynn",
         "ticketTelegram": "Hancock Best",
         "ticketSms": "IR 0236598000215632014598002"
+      }
+    ],
+    "wallets": [
+      {
+        "isMain": true,
+        "isSms": false,
+        "name": "asli silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
+      },
+      {
+        "isMain": false,
+        "isSms": true,
+        "name": "sms silverpay",
+        "inventory": 0,
+        "enterMoney": 0,
+        "exitMoney": 0,
+        "onExitMoney": 0
       }
     ]
   }

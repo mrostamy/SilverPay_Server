@@ -85,12 +85,33 @@ public class Routes {
 
         public static final String update = base_url + "/bankCards/{id}";
 
-        public static final String delete = base_url + base_url + "/bankCards/{id}";
+        public static final String delete = base_url + "/bankCards/{id}";
     }
     //endregion
 
+    //region document routes
+    public static class Document {
 
+        public static final String get_documents = base_url+"/users/{user_id}/documents";
 
+        public static final String get_document = base_url+"/users/{user_id}/documents/{id}";
+
+        public static final String insert_document = base_url+"/users/{user_id}/documents";
+
+    }
+    //endregion
+
+    //region wallet routes
+    public static class Wallet {
+
+        public static final String get_wallets = base_url+"/users/{user_id}/wallet";
+
+        public static final String get_wallet = base_url+"/users/{user_id}/wallets/{id}";
+
+        public static final String insert_wallet = base_url+"/users/{user_id}/wallets";
+
+    }
+    //endregion
 
 
 }

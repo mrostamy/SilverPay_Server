@@ -1,4 +1,4 @@
-package com.mydomomain.silverpay.controller.site.V1.user;
+package com.mydomomain.silverpay.dto.site.panel.users;
 
 import lombok.Getter;
 import lombok.Setter;

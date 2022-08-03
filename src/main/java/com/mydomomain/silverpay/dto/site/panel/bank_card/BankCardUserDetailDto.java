@@ -14,20 +14,20 @@ public class BankCardUserDetailDto {
 
     private String id;
 
+    private boolean approve;
+
     private String bankName;
 
     private String ownerName;
 
     private String shaba;
 
+    private String accountNumber;
+
     private String cardNumber;
 
     private String expireMonth;
 
     private String expireYear;
-
-//    private boolean approve;
-
-
 
 }

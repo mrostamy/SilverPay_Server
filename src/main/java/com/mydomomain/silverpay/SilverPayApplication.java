@@ -1,6 +1,5 @@
 package com.mydomomain.silverpay;
 
-import com.mydomomain.silverpay.configuration.security.CheckUserIdFilter;
 import com.mydomomain.silverpay.service.userService.seedService.SeedService;
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
@@ -10,15 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.Arrays;
-import java.util.List;
 
 //(exclude = {SecurityAutoConfiguration.class})
 
@@ -72,19 +67,6 @@ public class SilverPayApplication implements CommandLineRunner {
             }
         };
     }
-
-    @Bean
-    public FilterRegistrationBean<CheckUserIdFilter> filterRegistration() {
-
-        FilterRegistrationBean<CheckUserIdFilter> filter = new FilterRegistrationBean<>();
-
-        filter.setFilter(new CheckUserIdFilter());
-
-        filter.setUrlPatterns(List.of("**/notifications/**"));
-
-        return filter;
-    }
-
     @Override
     public void run(String... args) throws Exception {
         //seedService.seedUsers();

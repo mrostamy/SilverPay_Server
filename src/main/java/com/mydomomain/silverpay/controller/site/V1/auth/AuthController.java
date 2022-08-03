@@ -4,10 +4,7 @@ import com.mydomomain.silverpay.Routes.V1.Routes;
 import com.mydomomain.silverpay.dto.site.panel.users.UserLoginDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserRegisterDto;
 import com.mydomomain.silverpay.helper.JwtUtil;
-import com.mydomomain.silverpay.model.Notification;
-import com.mydomomain.silverpay.model.Photo;
-import com.mydomomain.silverpay.model.ReturnMessage;
-import com.mydomomain.silverpay.model.User;
+import com.mydomomain.silverpay.model.*;
 import com.mydomomain.silverpay.repository.main.IUserRepository;
 import com.mydomomain.silverpay.service.userService.AuthService;
 import org.slf4j.Logger;
@@ -90,6 +87,19 @@ public class AuthController {
         notification.setLoginSms(false);
         notification.setLoginTelegram(true);
 
+        Wallet walletMain = new Wallet();
+
+        walletMain.setName("main silverpay");
+        walletMain.setMain(true);
+        walletMain.setSms(false);
+        walletMain.setUser(user);
+
+        Wallet walletSms = new Wallet();
+
+        walletSms.setName("sms silverpay");
+        walletSms.setMain(true);
+        walletSms.setSms(false);
+        walletSms.setUser(user);
 
         Photo photo = new Photo();
         photo.setUser(user);
@@ -99,7 +109,7 @@ public class AuthController {
         photo.setPublicId("0");
         photo.setPhotoUrl(String.format("%s://%s:%s/%s", request.getScheme(), request.getServerName(), request.getServerPort(), "/content/pic/default_profile.png"));//create web like path
 
-        User u = authService.register(user, notification, photo, userRegisterDto.getPassword());
+        User u = authService.register(user, notification, photo,walletMain,walletSms ,userRegisterDto.getPassword());
 
         return new ResponseEntity<>(u, HttpStatus.CREATED);
 

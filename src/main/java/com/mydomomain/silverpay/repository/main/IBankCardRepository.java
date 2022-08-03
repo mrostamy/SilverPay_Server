@@ -6,4 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface IBankCardRepository extends JpaRepository<BankCard,String> {
+
+    int countByUser_id(String userid);
+
 }

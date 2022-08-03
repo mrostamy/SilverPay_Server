@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 public class BankCardReturnDto {
 
+    private String id;
 
     private String bankName;
 
