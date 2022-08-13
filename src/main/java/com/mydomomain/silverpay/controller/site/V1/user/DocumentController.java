@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
@@ -45,7 +46,7 @@ public class DocumentController {
     @PostMapping(Routes.Document.insert_document)
     public ResponseEntity<?> insertDocument(@PathVariable String user_id,
                                             DocumentCreateDto createDto,
-                                            HttpServletRequest request) throws URISyntaxException {
+                                            HttpServletRequest request) throws URISyntaxException, FileNotFoundException {
 
 
         Document approved = documentRepository.findAll().stream()
@@ -61,7 +62,7 @@ public class DocumentController {
             if (inChecking == null) {
 
                 FileUploadedDto uploadedDto = uploadService
-                        .uploadProfilePicToLocal(createDto.getFile(), user_id, request.getContextPath());
+                        .uploadProfilePicToLocal(createDto.getFile(),"", user_id, request.getContextPath());
 
                 if (uploadedDto.isStatus()) {
 

@@ -1,4 +1,4 @@
-package com.mydomomain.silverpay.controller.site.V1.user;
+package com.mydomomain.silverpay.dto.site.panel.users;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +15,8 @@ public class WalletReturnDto {
     private boolean isMain;
 
     private boolean isSms;
+
+    private boolean isBlock;
 
     private String name;
 

@@ -1,10 +1,9 @@
 package com.mydomomain.silverpay.configuration.model_mapper;
 
 
-import com.mydomomain.silverpay.controller.site.V1.user.WalletCreateDto;
-import com.mydomomain.silverpay.controller.site.V1.user.WalletReturnDto;
-import com.mydomomain.silverpay.dto.site.panel.photo.PhotoReturnProfileDto;
-import com.mydomomain.silverpay.model.Photo;
+import com.mydomomain.silverpay.dto.site.panel.users.WalletCreateDto;
+import com.mydomomain.silverpay.dto.site.panel.users.WalletReturnDto;
+import com.mydomomain.silverpay.model.Gate;
 import com.mydomomain.silverpay.model.Wallet;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -21,4 +20,7 @@ public interface WalletMapper {
     List<WalletReturnDto> walletMapper(List<Wallet> wallet);
 
     Wallet walletMapper(WalletCreateDto createDto);
+
+    List<WalletReturnDto> walletReturn(List<Wallet> gates);
+
 }

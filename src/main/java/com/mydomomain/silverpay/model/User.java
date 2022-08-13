@@ -2,6 +2,7 @@ package com.mydomomain.silverpay.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mydomomain.silverpay.model.blog.Blog;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
@@ -105,18 +106,19 @@ public class User extends BaseEntity<String> implements UserDetails, Serializabl
     @OneToMany
     @JoinColumn
     private List<Wallet> wallets;
-//
-//    @OneToMany
-//    @JoinColumn
-//    private List<Ticket> tickets;
-//
-//    @OneToMany
-//    @JoinColumn
-//    private List<EasyPay> easyPays;
-//
-//    @OneToMany
-//    @JoinColumn
-//    private List<Blog> blogs;
+
+    @OneToMany
+    @JoinColumn
+    private List<Ticket> tickets;
+
+
+    @OneToMany
+    @JoinColumn
+    private List<EasyPay> easyPays;
+
+    @OneToMany
+    @JoinColumn
+    private List<Blog> blogs;
 
     public void addRole(Role role) {
         this.roles.add(role);

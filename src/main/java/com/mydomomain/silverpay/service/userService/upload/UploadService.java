@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -67,46 +68,50 @@ public class UploadService implements IUploadService {
     }
 
     @Override
-    public FileUploadedDto uploadProfilePicToLocal(MultipartFile file, String webRootPath, String userId) {
+    public FileUploadedDto uploadProfilePicToLocal(MultipartFile file, String webRootPath, String userId, String url) throws FileNotFoundException {
 
-        try {
-
-            String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-            String fileName = userId + "." + extension;
-            String path = ResourceUtils.getFile("classpath:static/content/pic/").getAbsolutePath();
-
-            String fullName = Path.of(path, fileName).toString();
-
-            if (file.getSize() > 0) {
-
-                file.transferTo(new File(fullName));
-
-                return new FileUploadedDto(
-                        true,
-                        true,
-                        webRootPath + "content/pic/" + fileName,
-                        "0",
-                        "file uploaded successfully"
-                );
-
-            } else {
-                return new FileUploadedDto(false, false, null, null, "file not found for upload");
-            }
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (url == null || url.isEmpty() || url.isBlank())
+        {
+            url= ResourceUtils.getFile("classpath:static/content/pic/").getAbsolutePath();
         }
+
+            try {
+
+                String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+                String fileName = userId + "." + extension;
+
+                String fullName = Path.of(url, fileName).toString();
+
+                if (file.getSize() > 0) {
+
+                    file.transferTo(new File(fullName));
+
+                    return new FileUploadedDto(
+                            true,
+                            true,
+                            webRootPath + "content/pic/" + fileName,
+                            "0",
+                            "file uploaded successfully"
+                    );
+
+                } else {
+                    return new FileUploadedDto(false, false, null, null, "file not found for upload");
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
 
 
     }
 
     @Override
-    public FileUploadedDto profilePicUpload(MultipartFile file, String userId, String webRootPath) {
+    public FileUploadedDto profilePicUpload(MultipartFile file, String userId, String webRootPath) throws FileNotFoundException {
 
         var settings = settingRepository.findById(1).orElse(null);
 
         if (settings == null || settings.isUploadLocal()) {
-            return uploadProfilePicToLocal(file, webRootPath, userId);
+            return uploadProfilePicToLocal(file, webRootPath, userId,"");
         } else {
             return uploadProfilePicToCloudinary(file, userId);
         }

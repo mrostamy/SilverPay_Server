@@ -2,9 +2,12 @@ package com.mydomomain.silverpay.controller.site.V1.user;
 
 import com.mydomomain.silverpay.Routes.V1.Routes;
 import com.mydomomain.silverpay.configuration.model_mapper.WalletMapper;
+import com.mydomomain.silverpay.dto.site.panel.users.WalletCreateDto;
+import com.mydomomain.silverpay.dto.site.panel.users.WalletReturnDto;
 import com.mydomomain.silverpay.model.ReturnMessage;
 import com.mydomomain.silverpay.model.Wallet;
 import com.mydomomain.silverpay.repository.main.IWalletRepository;
+import com.mydomomain.silverpay.service.userService.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -28,10 +31,12 @@ public class WalletController {
 
     final IWalletRepository walletRepository;
 
+    final WalletService walletService;
 
-    WalletController(IWalletRepository walletRepository) {
+    WalletController(IWalletRepository walletRepository, WalletService walletService) {
 
         this.walletRepository = walletRepository;
+        this.walletService = walletService;
     }
 
 
@@ -98,7 +103,7 @@ public class WalletController {
         boolean exist = walletRepository.findAll().
                 stream()
                 .anyMatch(b ->
-                        Objects.equals(b.getName(), createDto.getName()) && Objects.equals(b.getUser().getId(), user_id));
+                        Objects.equals(b.getName(), createDto.getWalletName()) && Objects.equals(b.getUser().getId(), user_id));
 
         if (exist)
             return new ResponseEntity<>("the wallet registered before", HttpStatus.BAD_REQUEST);
@@ -109,18 +114,57 @@ public class WalletController {
 
         }
 
-        long code = walletRepository.findAllProjectBy().stream().findFirst().orElse(null).getCode()+1;
 
-        Wallet wallet = new Wallet();
-        wallet.setId(user_id);
-        wallet.setCode(code);
+        if (walletService.checkInventory(1500, createDto.getWalletId())) {
 
-        wallet = WalletMapper.instance.walletMapper(createDto);
+            var decResult = walletService.decrease(1500, createDto.getWalletId());
 
-        walletRepository.save(wallet);
+            if (decResult.isStatus()) {
+
+                var walletCreate = new Wallet();
+                walletCreate.getUser().setId(user_id);
+                walletCreate.setBlock(false);
+                walletCreate.setName(createDto.getWalletName());
+                walletCreate.setMain(false);
+                walletCreate.setSms(false);
 
 
-        return ResponseEntity.created(new URI("?id=" + user_id)).body(wallet);
+                long code = walletRepository.findAllProjectBy().stream().findFirst().orElse(null).getCode() + 1;
+
+                Wallet wallet = new Wallet();
+                wallet.setId(user_id);
+                wallet.setCode(code);
+                wallet.setBlock(false);
+
+                WalletCreateDto walletCreateDto = new WalletCreateDto();
+                walletCreateDto.setWalletName(createDto.getWalletName());
+
+                wallet = WalletMapper.instance.walletMapper(createDto);
+
+                walletRepository.save(wallet);
+
+
+                return ResponseEntity.created(new URI("?id=" + user_id)).body(wallet);
+
+            } else {
+                var incResult = walletService.increase(1500, createDto.getWalletId());
+
+                if (incResult.isStatus()) {
+                    return new ResponseEntity<>("error in register data", HttpStatus.BAD_REQUEST);
+
+                } else {
+                    return new ResponseEntity<>("error in register data,if account amount decrease contact support", HttpStatus.BAD_REQUEST);
+
+                }
+
+            }
+
+
+        } else {
+            return new ResponseEntity<>("inventory not enough", HttpStatus.BAD_REQUEST);
+
+        }
+
 
     }
 

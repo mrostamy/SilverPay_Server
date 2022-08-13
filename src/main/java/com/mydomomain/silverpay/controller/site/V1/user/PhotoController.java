@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.Principal;
@@ -44,7 +45,7 @@ public class PhotoController {
             @PathVariable String user_id
             , @ModelAttribute PhotoProfileDto photoUserProfile
             , HttpServletRequest request
-            , Authentication principal) throws URISyntaxException {
+            , Authentication principal) throws URISyntaxException, FileNotFoundException {
 
 
         if (!principal.getName().equals(user_id) || !request.isUserInRole("Admin")) {
