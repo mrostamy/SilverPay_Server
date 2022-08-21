@@ -1,26 +1,19 @@
 package com.mydomomain.silverpay.helper;
 
-import com.mydomomain.silverpay.dto.common.GenerateTokenDto;
-import com.mydomomain.silverpay.dto.common.TokenRequestDto;
-import com.mydomomain.silverpay.dto.common.TokenResponseDto;
 import com.mydomomain.silverpay.model.Token;
 import com.mydomomain.silverpay.model.User;
-import com.mydomomain.silverpay.repository.main.ITokenRepository;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
+import com.mydomomain.silverpay.repository.mainRepository.ITokenRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.catalina.security.SecurityUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 //www.codeJava.net
 

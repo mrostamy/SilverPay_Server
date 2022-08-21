@@ -4,8 +4,8 @@ import com.mydomomain.silverpay.Routes.V1.Routes;
 import com.mydomomain.silverpay.dto.site.panel.role.RoleEditDto;
 import com.mydomomain.silverpay.model.Role;
 import com.mydomomain.silverpay.model.User;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
-import com.mydomomain.silverpay.repository.main.UserView;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
+import com.mydomomain.silverpay.repository.mainRepository.UserView;
 import com.mydomomain.silverpay.service.userService.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController

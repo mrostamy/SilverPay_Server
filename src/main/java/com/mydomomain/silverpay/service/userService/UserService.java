@@ -2,8 +2,7 @@ package com.mydomomain.silverpay.service.userService;
 
 import com.mydomomain.silverpay.helper.PasswordHash;
 import com.mydomomain.silverpay.model.User;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
 import org.springframework.stereotype.Service;
 
 @Service

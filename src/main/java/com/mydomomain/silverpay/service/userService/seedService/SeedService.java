@@ -2,11 +2,9 @@ package com.mydomomain.silverpay.service.userService.seedService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.mydomomain.silverpay.model.BankCard;
-import com.mydomomain.silverpay.model.Photo;
 import com.mydomomain.silverpay.model.Role;
 import com.mydomomain.silverpay.model.User;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;

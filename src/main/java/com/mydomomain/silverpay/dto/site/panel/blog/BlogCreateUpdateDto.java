@@ -3,7 +3,9 @@ package com.mydomomain.silverpay.dto.site.panel.blog;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import javax.validation.constraints.NotEmpty;
 
 @Getter
@@ -21,9 +23,7 @@ public class BlogCreateUpdateDto {
     @Length(max = 500,message = "tag max character  is 500")
     private String tag;
 
-    @NotEmpty(message = "blog group name is required")
-    @Length(max = 500,message = "pic address max character  is 500")
-    private String picAddress;
+    private MultipartFile file;
 
     @NotEmpty(message = "text is required")
     private String text;

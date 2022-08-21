@@ -28,9 +28,15 @@ public class BlogReturnDto {
 
     private int viewCount;
 
+    private String userId;
+
     private String userName;
 
     private String name;
+
+    private String blogGroupId;
+
+    private String blogGroupName;
 
 
 }

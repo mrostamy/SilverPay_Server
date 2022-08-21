@@ -9,7 +9,7 @@ public class BlogGroupReturnDto {
 
     private String id;
 
-    private short parent;
+    private String parent;
 
     private String name;
 

@@ -17,6 +17,5 @@ public interface IUploadService {
 
     FileUploadedDto removeFileFromLocal(String photoName, String webRootPath, String path);
 
-
-
+    FileUploadedDto createDirectory(String webRootPath, String url);
 }

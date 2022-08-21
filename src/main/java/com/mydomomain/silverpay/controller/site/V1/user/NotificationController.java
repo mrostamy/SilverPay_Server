@@ -4,7 +4,7 @@ import com.mydomomain.silverpay.Routes.V1.Routes;
 import com.mydomomain.silverpay.configuration.model_mapper.NotificationMapper;
 import com.mydomomain.silverpay.dto.site.panel.notification.NotificationUpdateDto;
 import com.mydomomain.silverpay.model.Notification;
-import com.mydomomain.silverpay.repository.main.INotificationRepository;
+import com.mydomomain.silverpay.repository.mainRepository.INotificationRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -5,7 +5,7 @@ import com.mydomomain.silverpay.dto.site.panel.users.UserLoginDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserRegisterDto;
 import com.mydomomain.silverpay.helper.JwtUtil;
 import com.mydomomain.silverpay.model.*;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
 import com.mydomomain.silverpay.service.userService.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -27,6 +27,8 @@ public interface UserMapper {
 
     User user(UserUpdateDto userUpdateDto);
 
+    UserDetailDto userReturnDto(User user);
+
 
 
     @Named("pUrl")

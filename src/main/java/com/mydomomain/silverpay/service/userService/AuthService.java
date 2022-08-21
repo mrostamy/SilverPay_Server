@@ -5,11 +5,10 @@ import com.mydomomain.silverpay.model.Notification;
 import com.mydomomain.silverpay.model.Photo;
 import com.mydomomain.silverpay.model.User;
 import com.mydomomain.silverpay.model.Wallet;
-import com.mydomomain.silverpay.repository.main.INotificationRepository;
-import com.mydomomain.silverpay.repository.main.IPhotoRepository;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
-import com.mydomomain.silverpay.repository.main.IWalletRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mydomomain.silverpay.repository.mainRepository.INotificationRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IPhotoRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IWalletRepository;
 import org.springframework.stereotype.Service;
 
 @Service

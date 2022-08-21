@@ -5,8 +5,8 @@ import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import com.mydomomain.silverpay.dto.site.panel.upload.FileUploadedDto;
 import com.mydomomain.silverpay.model.Photo;
-import com.mydomomain.silverpay.repository.main.IPhotoRepository;
-import com.mydomomain.silverpay.repository.main.ISettingRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IPhotoRepository;
+import com.mydomomain.silverpay.repository.mainRepository.ISettingRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
@@ -70,37 +70,36 @@ public class UploadService implements IUploadService {
     @Override
     public FileUploadedDto uploadProfilePicToLocal(MultipartFile file, String webRootPath, String userId, String url) throws FileNotFoundException {
 
-        if (url == null || url.isEmpty() || url.isBlank())
-        {
-            url= ResourceUtils.getFile("classpath:static/content/pic/").getAbsolutePath();
+        if (url == null || url.isEmpty() || url.isBlank()) {
+            url = ResourceUtils.getFile("classpath:static/content/pic/").getAbsolutePath();
         }
 
-            try {
+        try {
 
-                String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
-                String fileName = userId + "." + extension;
+            String extension = StringUtils.getFilenameExtension(file.getOriginalFilename());
+            String fileName = userId + "." + extension;
 
-                String fullName = Path.of(url, fileName).toString();
+            String fullName = Path.of(url, fileName).toString();
 
-                if (file.getSize() > 0) {
+            if (file.getSize() > 0) {
 
-                    file.transferTo(new File(fullName));
+                file.transferTo(new File(fullName));
 
-                    return new FileUploadedDto(
-                            true,
-                            true,
-                            webRootPath + "content/pic/" + fileName,
-                            "0",
-                            "file uploaded successfully"
-                    );
+                return new FileUploadedDto(
+                        true,
+                        true,
+                        webRootPath + "content/pic/" + fileName,
+                        "0",
+                        "file uploaded successfully"
+                );
 
-                } else {
-                    return new FileUploadedDto(false, false, null, null, "file not found for upload");
-                }
-
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+            } else {
+                return new FileUploadedDto(false, false, null, null, "file not found for upload");
             }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
 
     }
@@ -111,7 +110,7 @@ public class UploadService implements IUploadService {
         var settings = settingRepository.findById(1).orElse(null);
 
         if (settings == null || settings.isUploadLocal()) {
-            return uploadProfilePicToLocal(file, webRootPath, userId,"");
+            return uploadProfilePicToLocal(file, webRootPath, userId, "");
         } else {
             return uploadProfilePicToCloudinary(file, userId);
         }
@@ -149,5 +148,27 @@ public class UploadService implements IUploadService {
 
 
         return null;
+    }
+
+    @Override
+    public FileUploadedDto createDirectory(String webRootPath, String url) {
+
+        var path = Paths.get(webRootPath, url);
+
+        if (!Files.exists(path)) {
+            try {
+
+                Files.createDirectory(path);
+
+                return new FileUploadedDto(true, true, "", "", "");
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+            }
+        }
+        return new FileUploadedDto(false, false, "", "", "");
+
+
     }
 }

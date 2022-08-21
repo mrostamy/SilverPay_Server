@@ -7,7 +7,7 @@ import com.mydomomain.silverpay.dto.site.panel.users.BankCardUpdateDto;
 import com.mydomomain.silverpay.dto.site.panel.users.BankCardReturnDto;
 import com.mydomomain.silverpay.model.BankCard;
 import com.mydomomain.silverpay.model.ReturnMessage;
-import com.mydomomain.silverpay.repository.main.IBankCardRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IBankCardRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

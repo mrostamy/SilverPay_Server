@@ -61,6 +61,23 @@ public class Routes {
     }
     //endregion
 
+    //region Accountant routes
+    public static class Accountant {
+
+
+        public static final String inventories = base_url+"/inventories";
+        public static final String inventoryWallets = base_url+"/inventories/wallets/{userId}";
+        public static final String inventoryBankCards = base_url+"/inventories/bankCards/{userId}";
+        public static final String inventoryBlockWallet = base_url+"/inventories/blockWallet/{flag}";
+        public static final String inventoryApproveWallet = base_url+"/inventories/approveBankCard/{bankCardId}";
+
+        public static final String getWallets = base_url+"/inventories/allWallets";
+        public static final String getBankCards = base_url+"/inventories/allBankCards";
+
+
+    }
+    //endregion
+
     //region photo notification
     public static class Notification {
 
@@ -175,7 +192,6 @@ public class Routes {
 
         public static final String get_blogGroup= base_url+"/users/{user_id}/blogGroups/{id}";
 
-
         public static final String insert_blogGroup = base_url+"/users/{user_id}/blogGroups";
 
         public static final String update_blogGroup= base_url + "/users/{user_id}/blogGroups/{id}";
@@ -187,6 +203,10 @@ public class Routes {
     //region blog
 
     public static class Blog {
+
+        public static final String upload_blogImage = base_url+"/users/{user_id}/blogs/upload";
+
+        public static final String delete_blogImage = base_url+"/users/{user_id}/blogs/delUpload";
 
         public static final String get_blogs= base_url+"/users/{user_id}/blogs";
 
@@ -201,6 +221,43 @@ public class Routes {
         public static final String update_blog= base_url + "/users/{user_id}/blogs/{id}";
 
         public static final String delete_blog = base_url + "/users/{user_id}/blogs/{id}";
+    }
+    //endregion
+
+    //region entry
+    public static class Entry {
+
+        public static final String get_entries = base_url+"/entries";
+
+        public static final String get_approvedEntries = base_url+"/entries/approve";
+        public static final String get_payedEntries = base_url+"/entries/payed";
+        public static final String get_doneEntries = base_url+"/entries/archive";
+
+        public static final String get_entry = base_url+"/entries/{entry_id}";
+
+        public static final String update_entry = base_url + "/entries/{entry_id}";
+
+        public static final String approve_entry = base_url + "/entries/{entry_id}/approve";
+
+        public static final String payment_entry = base_url + "/entries/{entry_id}/payment";
+
+        public static final String reject_entry = base_url + "/entries/{entry_id}/ reject";
+
+        public static final String delete_entry = base_url + "/entries/{entry_id}";
+
+    }
+    //endregion
+
+    //region factor
+    public static class Factor {
+
+        public static final String get_factors = base_url+"/factors";
+
+        public static final String get_factor = base_url+"/factors/{factor_id}";
+
+        public static final String status_factor = base_url + "/factors/{factor_id}/status";
+
+        public static final String delete_factor = base_url + "/factors/{factor_id}";
     }
     //endregion
 }

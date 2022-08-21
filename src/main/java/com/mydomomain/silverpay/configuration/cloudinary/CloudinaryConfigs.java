@@ -1,9 +1,7 @@
 package com.mydomomain.silverpay.configuration.cloudinary;
 
 import com.cloudinary.Cloudinary;
-import com.mydomomain.silverpay.helper.CloudinarySettings;
-import com.mydomomain.silverpay.repository.main.ISettingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.mydomomain.silverpay.repository.mainRepository.ISettingRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;

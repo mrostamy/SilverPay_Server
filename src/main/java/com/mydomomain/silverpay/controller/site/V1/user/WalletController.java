@@ -6,7 +6,7 @@ import com.mydomomain.silverpay.dto.site.panel.users.WalletCreateDto;
 import com.mydomomain.silverpay.dto.site.panel.users.WalletReturnDto;
 import com.mydomomain.silverpay.model.ReturnMessage;
 import com.mydomomain.silverpay.model.Wallet;
-import com.mydomomain.silverpay.repository.main.IWalletRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IWalletRepository;
 import com.mydomomain.silverpay.service.userService.WalletService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

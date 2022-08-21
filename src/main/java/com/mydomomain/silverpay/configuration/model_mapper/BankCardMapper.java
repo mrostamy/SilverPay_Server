@@ -20,4 +20,6 @@ public interface BankCardMapper {
 
     List<BankCardUserDetailDto> bankCardMapper(List<BankCard> bankCards);
 
+    List<BankCardReturnDto> ToReturnDtoList(List<BankCard> bankCards);
+
 }

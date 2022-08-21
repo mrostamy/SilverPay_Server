@@ -7,7 +7,7 @@ import com.mydomomain.silverpay.dto.site.panel.users.UserDetailDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserListDto;
 import com.mydomomain.silverpay.dto.site.panel.users.UserUpdateDto;
 import com.mydomomain.silverpay.model.User;
-import com.mydomomain.silverpay.repository.main.IUserRepository;
+import com.mydomomain.silverpay.repository.mainRepository.IUserRepository;
 import com.mydomomain.silverpay.service.userService.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

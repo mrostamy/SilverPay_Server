@@ -4,6 +4,7 @@ import com.mydomomain.silverpay.dto.site.panel.blog.BlogCreateUpdateDto;
 import com.mydomomain.silverpay.dto.site.panel.blog.BlogReturnDto;
 import com.mydomomain.silverpay.model.User;
 import com.mydomomain.silverpay.model.blog.Blog;
+import com.mydomomain.silverpay.model.blog.BlogGroup;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -19,6 +20,9 @@ public interface BlogMapper {
 
     @Mapping(source = "user", target = "name", qualifiedByName = "mapName")
     @Mapping(source = "user", target = "userName", qualifiedByName = "mapUserName")
+    @Mapping(source = "user", target = "userId", qualifiedByName = "mapUserId")
+    @Mapping(source = "blogGroup", target = "blogGroupId", qualifiedByName = "mapBlogGroupId")
+    @Mapping(source = "blogGroup", target = "blogGroupName", qualifiedByName = "mapBlogGroupName")
     BlogReturnDto blogToReturnDto(Blog blog);
 
     List<BlogReturnDto> blogsToReturnDtoes(List<Blog> blog);
@@ -39,6 +43,26 @@ public interface BlogMapper {
 
         return user.getName();
     }
+
+    @Named("mapUserId")
+    default String mapIdUser(User user) {
+
+        return user.getId();
+    }
+
+    @Named("mapBlogGroupId")
+    default String mapIdBlogGroup(BlogGroup blogGroup) {
+
+        return blogGroup.getId();
+    }
+
+    @Named("mapBlogGroupName")
+    default String mapNameBlogGroup(BlogGroup blogGroup) {
+
+        return blogGroup.getId();
+    }
+
+
 
 
 }

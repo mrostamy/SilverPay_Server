@@ -1,4 +1,4 @@
-package com.mydomomain.silverpay.repository.main;
+package com.mydomomain.silverpay.repository.mainRepository;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.mydomomain.silverpay.model.Role;
