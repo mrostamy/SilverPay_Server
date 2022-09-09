@@ -5,11 +5,13 @@ public class Routes {
 
     private static final String base_url = "V1/api/site/panel";
 
-
-    //region auth routes
+    //#region panel
+//region auth routes
     public static class Auth {
 
         public static final String login = base_url + "/auth/login";
+
+        public static final String get_verification_code = base_url + "/auth/code";
 
         public static final String register = base_url + "/auth/register";
 
@@ -296,7 +298,35 @@ public class Routes {
         public static final String get_blog_dashboard = base_url + "/blog/{user_id}/common/dashboard";
 
 
+    }
+    //endregion
+
+    //region dashboards
+    public static class AdminFileManager {
+
+        public static final String file_operations = "/admin/filemanager/operations";
+
+        public static final String file_download = "/admin/filemanager/download";
+
+        public static final String file_upload = "/admin/filemanager/upload";
+
+        public static final String file_get_image = "/admin/filemanager/getImage";
 
     }
     //endregion
+    //#endregion
+
+    //#region site
+
+    public static class home {
+
+        private final String base_site_url = "site";
+
+        public static final String get_home_data = base_url + "/home/data";
+
+    }
+
+
+    //endregion
+
 }

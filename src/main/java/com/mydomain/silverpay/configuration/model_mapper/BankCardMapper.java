@@ -1,8 +1,8 @@
 package com.mydomain.silverpay.configuration.model_mapper;
 
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.BankCardReturnDto;
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.BankCardUpdateDto;
-import com.mydomain.silverpay.data.dto.site.panel.bank_card.BankCardUserDetailDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.BankCardReturnDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.BankCardUpdateDto;
+import com.mydomain.silverpay.data.dto.app.panel.bank_card.BankCardUserDetailDto;
 import com.mydomain.silverpay.data.model.mainDB.BankCard;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

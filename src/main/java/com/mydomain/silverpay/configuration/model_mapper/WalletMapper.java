@@ -2,8 +2,8 @@ package com.mydomain.silverpay.configuration.model_mapper;
 
 
 import com.mydomain.silverpay.data.model.mainDB.Wallet;
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.WalletCreateDto;
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.WalletReturnDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.WalletCreateDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.WalletReturnDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

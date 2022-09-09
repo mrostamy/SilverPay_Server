@@ -1,9 +1,9 @@
 package com.mydomain.silverpay.configuration.model_mapper;
 
-import com.mydomain.silverpay.data.dto.site.panel.blog.BlogReturnDto;
+import com.mydomain.silverpay.data.dto.app.panel.blog.BlogReturnDto;
 import com.mydomain.silverpay.data.model.mainDB.blog.Blog;
 import com.mydomain.silverpay.data.model.mainDB.blog.BlogGroup;
-import com.mydomain.silverpay.data.dto.site.panel.blog.BlogCreateUpdateDto;
+import com.mydomain.silverpay.data.dto.app.panel.blog.BlogCreateUpdateDto;
 import com.mydomain.silverpay.data.model.mainDB.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

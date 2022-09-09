@@ -3,7 +3,7 @@ package com.mydomain.silverpay.service.userService.upload;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
-import com.mydomain.silverpay.data.dto.site.panel.upload.FileUploadedDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.FileUploadedDto;
 import com.mydomain.silverpay.data.model.mainDB.Photo;
 import com.mydomain.silverpay.repository.MainDB.IPhotoRepository;
 import com.mydomain.silverpay.repository.MainDB.ISettingRepository;

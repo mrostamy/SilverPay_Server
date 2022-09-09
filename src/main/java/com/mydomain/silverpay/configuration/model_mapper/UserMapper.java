@@ -1,8 +1,8 @@
 package com.mydomain.silverpay.configuration.model_mapper;
 
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.UserDetailDto;
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.UserListDto;
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.UserUpdateDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.UserDetailDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.UserListDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.UserUpdateDto;
 import com.mydomain.silverpay.data.model.mainDB.Photo;
 import com.mydomain.silverpay.data.model.mainDB.User;
 import org.mapstruct.Mapper;
@@ -27,7 +27,7 @@ public interface UserMapper {
 
     User user(UserUpdateDto userUpdateDto);
 
-    UserDetailDto userReturnDto(User user);
+//    UserDetailDto userReturnDto(User user);
 
     List<UserDetailDto> userReturnDto(List<User> user);
 

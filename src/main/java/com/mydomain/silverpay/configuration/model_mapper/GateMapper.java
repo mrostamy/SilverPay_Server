@@ -1,7 +1,7 @@
 package com.mydomain.silverpay.configuration.model_mapper;
 
-import com.mydomain.silverpay.data.dto.site.panel.gate.GateCreateDto;
-import com.mydomain.silverpay.data.dto.site.panel.gate.GateReturnDto;
+import com.mydomain.silverpay.data.dto.app.panel.gate.GateCreateDto;
+import com.mydomain.silverpay.data.dto.app.panel.gate.GateReturnDto;
 import com.mydomain.silverpay.data.model.mainDB.Gate;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;

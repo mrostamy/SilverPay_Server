@@ -1,6 +1,6 @@
 package com.mydomain.silverpay.service.userService.upload;
 
-import com.mydomain.silverpay.data.dto.site.panel.upload.FileUploadedDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.FileUploadedDto;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;

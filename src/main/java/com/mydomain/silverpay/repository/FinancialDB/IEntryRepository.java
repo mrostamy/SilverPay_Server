@@ -17,12 +17,12 @@ public interface IEntryRepository extends JpaRepository<Entry, String> {
 
     int countByApproveAndRejectAndPayed(boolean approved, boolean rejected, boolean payed);
 
-    List<Entry> findTop10ByUser_Id(String userId);
+    List<Entry> findTop10ByUserId(String userId);
 
-    @Query("SELECT SUM(e.price) FROM Entry e WHERE e.userId=:userId and e.isPayed = true")
+    @Query("SELECT SUM(e.price) FROM Entry e WHERE e.userId=:userId and e.payed = true")
     int findSumOfPrice(@Param(value = "userId") String userId);
 
-    @Query("SELECT SUM(e.price) FROM Entry e WHERE e.userId=:userId and e.isPayed=true and e.modifiedAt=:date")
+    @Query("SELECT SUM(e.price) FROM Entry e WHERE e.userId=:userId and e.payed=true and e.modifiedAt=:date")
     int findSumOfPriceAtDate(@Param(value = "userId") String userId, @Param(value = "userId") LocalDateTime dateTime);
 
 //    @Query("SELECT SUM(e.price) FROM Entry e WHERE e.userId=:userId and e.isPayed=true and e.modifiedAt=:date")

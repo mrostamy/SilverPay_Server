@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface IFactorRepository extends JpaRepository<Factor, String> {
 
-    List<Factor> findTop10ByUser_Id(String userId);
+    List<Factor> findTop10ByUserId(String userId);
 
     @Query("SELECT SUM(f.price) FROM Factor f WHERE f.userId=:userId and f.status=true")
     int findSumOfPrice(@Param(value = "userId") String userId);

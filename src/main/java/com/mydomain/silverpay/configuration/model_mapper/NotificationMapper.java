@@ -1,6 +1,6 @@
 package com.mydomain.silverpay.configuration.model_mapper;
 
-import com.mydomain.silverpay.data.dto.site.panel.notification.NotificationUpdateDto;
+import com.mydomain.silverpay.data.dto.app.panel.notification.NotificationUpdateDto;
 import com.mydomain.silverpay.data.model.mainDB.Notification;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

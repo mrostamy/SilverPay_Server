@@ -1,7 +1,7 @@
 package com.mydomain.silverpay.configuration.model_mapper;
 
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.EasyPayCreateUpdateDto;
-import com.mydomain.silverpay.data.dto.site.panel.upload.users.EasyPayReturnDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.EasyPayCreateUpdateDto;
+import com.mydomain.silverpay.data.dto.app.panel.upload.users.EasyPayReturnDto;
 import com.mydomain.silverpay.data.model.mainDB.EasyPay;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
